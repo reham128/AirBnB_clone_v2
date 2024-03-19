@@ -4,7 +4,7 @@ from os import getenv
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import (create_engine)
 from sqlalchemy.ext.declarative import declarative_base
-from models.base_model import Base
+from models.base_model import Base, BaseModel
 from models.state import State
 from models.city import City
 from models.user import User
@@ -45,8 +45,8 @@ class DBStorage:
                 key = "{}.{}".format(type(elem).__name__, elem.id)
                 dic[key] = elem
         else:
-            list = [State, City, User, Place, Review, Amenity]
-            for clase in list:
+            list_cls = [State, City, User, Place, Review, Amenity]
+            for clase in list_cls:
                 query = self.__session.query(clase)
                 for elem in query:
                     key = "{}.{}".format(type(elem).__name__, elem.id)
