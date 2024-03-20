@@ -6,6 +6,7 @@ from models.review import Review
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from models.place import Place
+import os
 
 
 class User(BaseModel, Base):

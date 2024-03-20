@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 import models
+import os
 
 
 Base = declarative_base()
@@ -30,9 +31,9 @@ class BaseModel:
                 if 'id' not in kwargs:
                     self.id = str(uuid.uuid4())
                 if 'created_at' not in kwargs:
-                    self.created_at = datetime.utcnow()
+                    self.created_at = datetime.now()
                 if 'updated_at' not in kwargs:
-                    self.updated_at = datetime.utcnow()
+                    self.updated_at = datetime.now()
             del kwargs['__class__']
             self.__dict__.update(kwargs)
 

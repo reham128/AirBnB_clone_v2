@@ -2,6 +2,7 @@
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 import shlex
+import os 
 
 
 class FileStorage:
