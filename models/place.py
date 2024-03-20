@@ -8,12 +8,18 @@ from sqlalchemy import Column, String, ForeignKey, Table, Integer, Float
 import models
 import os 
 
+place_amenity = Table("place_amenity", Base.metadata,
+        Column('place_id', String(60), ForeignKey('place_id'), primary_key=True,
+               nullable=False),
+        Column('amenity_id', String(60), ForeignKey('amenity_id'), primary_key=True,
+               nullable=False))
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-    user_id = Column(String(60), ForeignKey('user_id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users_id'), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=True)
     number_rooms = Column(Integer, nullable=False, default=0)
@@ -36,14 +42,14 @@ class Place(BaseModel, Base):
         def reviews(self):
             """ Returns list of reviews.id """
             var = models.storage.all()
-            list = []
+            list_c = []
             result = []
             for key in var:
                 review = key.replace('.', ' ')
                 review = shlex.split(review)
                 if (review[0] == 'Review'):
-                    list.append(var[key])
-            for elem in list:
+                    list_c.append(var[key])
+            for elem in list_c:
                 if (elem.place_id == self.id):
                     result.append(elem)
             return (result)
