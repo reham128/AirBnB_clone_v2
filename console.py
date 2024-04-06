@@ -10,9 +10,6 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from models import storage
-import os
-import shelx
 
 
 class HBNBCommand(cmd.Cmd):
@@ -40,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
+
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -122,13 +120,13 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             arg_list = args.split(" ")
             kw = {}
-            for arg in arg_list[1:]:
+            for arg in args_list[1:]:
                 arg_splited = arg.split("=")
                 arg_splited[1] = eval(arg_splited[1])
                 if type(arg_splited[1]) is str:
                     arg_splited[1] = arg_splited[1].replace(
                             "_", " ").replace('"', '\\"')
-                kw[arg_splited[0]] = arg_splited[1]
+                    kw[arg_splited[0]] = arg_splited[1]
         except SyntaxError:
             print("** class name missing **")
         except NameError:
@@ -196,9 +194,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
         key = c_name + "." + c_id
-
+        
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -222,7 +220,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in storage.all().items():
                 print_list.append(str(v))
-
         print(print_list)
 
     def help_all(self):
@@ -239,11 +236,11 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def help_count(self):
-        """Provide information for the command"""
+        """ """
         print("Usage: count <class_name>")
 
     def do_update(self, args):
-        """Updates a certain object with new info"""
+        """ Updates a certain object with new info """
         c_name = c_id = att_name = att_val = kwargs = ''
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)
