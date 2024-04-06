@@ -12,6 +12,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models import storage
 import os
+import shelx
 
 
 class HBNBCommand(cmd.Cmd):
@@ -21,15 +22,15 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+            }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
+            'number_rooms': int, 'number_bathrooms': int,
+            'max_guest': int, 'price_by_night': int,
+            'latitude': float, 'longitude': float
             }
 
     def preloop(self):
@@ -39,7 +40,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -126,8 +126,8 @@ class HBNBCommand(cmd.Cmd):
                 arg_splited = arg.split("=")
                 arg_splited[1] = eval(arg_splited[1])
                 if type(arg_splited[1]) is str:
-                    arg_splited[1] = arg_splited[1].replace("_", " ")
-                    arg_splited[1] = arg_splited[1].replace('"', '\\"')
+                    arg_splited[1] = arg_splited[1].replace(
+                            "_", " ").replace('"', '\\"')
                 kw[arg_splited[0]] = arg_splited[1]
         except SyntaxError:
             print("** class name missing **")
@@ -217,11 +217,10 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
+                print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
