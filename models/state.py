@@ -15,19 +15,19 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade='all, delete, delete-orphan',
-                          backref="state")
+            backref="state")
 
     @property
     def cities(self):
         var = models.storage.all()
-        list = []
+        lista = []
         result = []
         for key in var:
             city = key.replace('.', ' ')
             city = shlex.split(city)
             if (city[0] == 'City'):
-                list.append(var[key])
-        for elem in list:
+                lista.append(var[key])
+        for elem in lista:
             if (elem.state_id == self.id):
                 result.append(elem)
         return (result)
