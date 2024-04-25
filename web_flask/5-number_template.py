@@ -5,8 +5,8 @@ Routes:
     /: Displays 'Hello HBNB!'.
     /hbnb: Displays 'HBNB'.
 """
-from flask import abort
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -41,6 +41,12 @@ def python(text="is cool"):
 def number(n):
     ''' to display n is aa number if n i int. '''
     return ("{} is a number".format(n))
+
+
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def number_template(n):
+    '''To display html page if n is int'''
+    return (render_template("5-number.html", n=n))
 
 
 if __name__ == "__main__":
