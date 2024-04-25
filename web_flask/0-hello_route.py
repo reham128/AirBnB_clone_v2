@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""
-A script that starts a Flask web application
-"""
+'''A script that starts a Flask web application'''
+
 from flask import Flask
 from werkzeug.utils import url_quote
 
@@ -10,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
-    ''' display “Hello HBNB!” '''
+    '''Display Hello HBNB! '''
     return ('Hello HBNB!')
 
 
