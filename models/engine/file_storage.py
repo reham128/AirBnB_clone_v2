@@ -2,7 +2,6 @@
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 import shlex
-import os
 
 
 class FileStorage:
@@ -67,7 +66,6 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in FileStorage.__objects:
                 del FileStorage.__objects[key]
-
 
     def close(self):
         """method for deserializing the JSON file to objects"""
