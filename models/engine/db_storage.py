@@ -13,6 +13,7 @@ from models.review import Review
 from models.amenity import Amenity
 import os
 
+
 class DBStorage:
     """ creates tables in environmental"""
     __engine = None
