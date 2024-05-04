@@ -3,6 +3,7 @@
 
 apt-get update
 apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
 sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
 sudo echo "<html>
 <head></head>
