@@ -4,6 +4,7 @@ from fabric.api import *
 import os
 from datetime import datetime
 
+
 env.hosts = ["54.196.196.104", "100.25.102.27"]
 env.user = "ubuntu"
 env.key_filename = '~/.ssh/id_rsa'
@@ -12,16 +13,16 @@ env.key_filename = '~/.ssh/id_rsa'
 def do_pack():
     '''to  generate .tgz archive of web_static folder'''
     try:
-        local('sudo mkdir -p versions')
-        time_str = datetime.now().strftime('5Y%m%d%H%M%S')
-        local('sudo tar -cvzf versions/web_static_{}.tgz web_static'
+        local('mkdir -p versions')
+        time_str = datetime.now().strftime('Y%m%d%H%M%S')
+        local('tar -cvzf versions/web_static_{}.tgz web_static'
               .format(time_str))
-        dir_path = 'versions/web_static_{}.tgz'.format(time_str)
+        dir_path = f'versions/web_static_{time_str}.tgz'
         dir_size = os.path.getsize(dir_path)
-        print('web_static packed: {} -> {}Bytes'.format(dir_path, dir_size))
+        print(f'web_static packed: {dir_path} -> {dir_size}Bytes')
 
-        return ('versions/web_static_{}.tgz'.format(time_str))
-    except Exception as e:
+        return dir_path
+    except OSError as e:
         print(f"Error creating archive: {e}")
         return (None)
 
