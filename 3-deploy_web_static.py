@@ -10,16 +10,20 @@ env.key_filename = "~/.ssh/id_rsa"
 
 
 def do_pack():
-    """Create a compressed archive of web_static."""
+    '''to  generate .tgz archive of web_static folder'''
     try:
-        local("mkdir -p versions")
-        time_str = datetime.now().strftime("%Y%m%d%H%M%S")
-        file_name = f"versions/web_static_{time_str}.tgz"
-        local("tar -czvf {} web_static".format(file_name))
-        return file_name
+        local('sudo mkdir -p versions')
+        time_str = datetime.now().strftime('Y%m%d%H%M%S')
+        local('sudo tar -cvzf versions/web_static_{}.tgz web_static'
+              .format(time_str))
+        dir_path = 'versions/web_static_{}.tgz'.format(time_str)
+        dir_size = os.path.getsize(dir_path)
+        print('web_static packed: {} -> {}Bytes'.format(dir_path, dir_size))
+
+        return ('versions/web_static_{}.tgz'.format(time_str))
     except Exception as e:
         print(f"Error creating archive: {e}")
-        return None
+        return (None)
 
 
 def do_deploy(archive_path):
