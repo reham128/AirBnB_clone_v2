@@ -22,8 +22,9 @@ def do_deploy(archive_path):
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive_name, archive_no_ext))
         run("rm /tmp/{}".format(archive_name))
-        run("mv /data/web_static/releases/{}/web_static/* /data/web_static
-            /releases/{}/".format(archive_no_ext, archive_no_ext))
+        run("mv /data/web_static/releases/{}/web_static/* /data/web_static"
+            "/releases/{}/".format(archive_no_ext, archive_no_ext))
+
         run("rm -rf /data/web_static/releases/{}/web_static"
             .format(archive_no_ext))
         run("rm -rf /data/web_static/current")
