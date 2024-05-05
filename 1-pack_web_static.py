@@ -10,8 +10,8 @@ def do_pack():
     '''to  generate .tgz archive of web_static folder'''
     try:
         local('sudo mkdir -p versions')
-        time_str = datetime.now.strftime('5Y%m%d%H%M%S')
-        local('sudo versions/web_static_{}.tgz web_static'.format(time_str))
+        time_str = datetime.now().strftime('5Y%m%d%H%M%S')
+        local('sudo tar -cvzf versions/web_static_{}.tgz web_static'.format(time_str))
         dir_path = 'versions/web_static_{}.tgz'.format(time_str)
         dir_size = os.path.getsize(dir_path)
         print('web_static packed: {} -> {}Bytes'.format(dir_path, dir_size))
