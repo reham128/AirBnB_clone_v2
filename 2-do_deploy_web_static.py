@@ -1,4 +1,4 @@
-##!/usr/bin/python3
+#!/usr/bin/python3
 '''Fabric script (based on the file 1-pack_web_static.py) use do_deploy'''
 from fabric.api import *
 import os
